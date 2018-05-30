@@ -219,8 +219,8 @@ class QZone():
                             self.queue.put(qqid)
 
     def main(self):
-        self.headers['cookie'] = "__Q_w_s__QZN_TodoMsgCnt=1; pgv_pvi=8253089792; pgv_pvid=3403444698; RK=oHq1G1nQSk; ptcz=7e14f0b9a4b967189bada31c13e79c97281469db5846da321d3ef5473577c8df; Loading=Yes; QZ_FE_WEBP_SUPPORT=1; ptisp=cnc; pgv_si=s4580814848; pgv_info=ssid=s7565655792; fnc=2; qz_screen=2560x1440; 346426523_todaycount=93; 346426523_totalcount=126048; ptui_loginuin=2634378274; pt2gguin=o2634378274; uin=o2634378274; skey=@2sZE6YaL2; p_uin=o2634378274; pt4_token=HZYln4o1RWEdW5rlOfaIcJSbf1R8ppohSFlWVipkDmU_; p_skey=Qh6mstpd8vZbh*CKEZ10ZVf5PoCjapXRP6sPlN1rto0_; scstat=30; 2634378274_todaycount=2; 2634378274_totalcount=3; cpu_performance_v8=3"
-        self.skey = '@2sZE6YaL2'
+        self.headers['cookie'] = "_qpsvr_localtk=0.09296240426904356; pgv_pvi=5298276352; pgv_si=s645937152; ptisp=cnc; pgv_pvid=445871590; pgv_info=ssid=s8576858245; ptui_loginuin=2634378274; pt2gguin=o2634378274; RK=xVgV1bFB5M; ptcz=f0325ee2ef78c84144b41f218c3766d4b6872aff7fd4eee0bc7716354004aba0; qqmusic_uin=; qqmusic_key=; qqmusic_fromtag=; midas_openid=2634378274; midas_openkey=@5bNq4zjh8; uin=o2634378274; skey=@FFo01xflb; rv2=80A93B1CFEA49ED8E89172B7686B2EBA3BE53C66F87CF4F2F5; property20=E99D5A2B562BB97BB6A553BFE43F2D9A106DB80936DEF117BCFAF317E62691C5513E3C58DFDE6A6A"
+        self.skey = '@5bNq4zjh8'
         self.g_tk = self.getGTK(self.skey)
         for qq_msg in self.csvfile:
             qqid = qq_msg[0]            # try:
