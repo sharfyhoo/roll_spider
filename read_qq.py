@@ -228,7 +228,10 @@ class QZone():
             #     self.get_friend_list(qqid)
             # except Exception as e:
             #     print(u'【wrong】目前访问的qq号为:{}出错\n{}'.format(qqid, e))
-            m = self.parse_index(qqid)
+            try:
+                m = self.parse_index(qqid)
+            except Exception as e:
+                print ('【Error__{}】:{}'.format(qqid, e))
         self.csvfile.close()
         self.csvfile2.close()
 
