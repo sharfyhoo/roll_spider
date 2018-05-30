@@ -29,7 +29,7 @@ class QZone():
         self.queue = Queue.Queue()
         self.queue.put('346426523')
         self.csvfile = csv.reader(open('qq_msg.csv'))
-        self.csvfile2 = open('use_qq.csv', 'w')
+        self.csvfile2 = open('use_qq2.csv', 'w')
         self.writer = csv.writer(self.csvfile2)
         self.writer.writerow(['qq'])
         self.filter_list = ['346426523']
@@ -183,7 +183,7 @@ class QZone():
         u'''访问好友主页 获取关键参数'''
         url = 'https://user.qzone.qq.com/{}'.format(qqid)
         #url = "https://i.qq.com/?s_url=http%3A%2F%2Fuser.qzone.qq.com%2F346426523&rd=1"
-        resp = self.ssion.get(url, headers=self.headers)
+        resp = self.ssion.get(url, headers=self.headers, timeout=10)
         # print resp.request.headers
         # print resp.request.url
         print "【访问qq】*** {} ***".format(qqid)
