@@ -175,10 +175,6 @@ class QZone():
         if u"主人设置了权限" in resp.text:
             qzonetoken = None
         else:
-            with open('s.text', 'w') as f:
-                f.write(resp.text)
-            #print('g_qzonetoken' in resp.text)
-
             qzonetoken = self.text_between(resp.text, 'window.g_qzonetoken = (function(){ try{return "', '";} catch(e)')
         return qzonetoken
 
