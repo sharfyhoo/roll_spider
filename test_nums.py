@@ -167,23 +167,24 @@ class QZone():
         url = 'https://user.qzone.qq.com/{}'.format(qqid)
         #url = "https://i.qq.com/?s_url=http%3A%2F%2Fuser.qzone.qq.com%2F346426523&rd=1"
         resp = self.ssion.get(url, headers=self.headers, allow_redirects=True)
-        print resp.request.headers
-        print resp.request.url
+        # print resp.request.headers
+        # print resp.request.url
+        print "【访问qq】*** {} ***".format(qqid)
         #print resp.text
-        print url
+        #print url
         if u"主人设置了权限" in resp.text:
             qzonetoken = None
         else:
             with open('s.text', 'w') as f:
                 f.write(resp.text)
-            print('g_qzonetoken' in resp.text)
+            #print('g_qzonetoken' in resp.text)
 
             qzonetoken = self.text_between(resp.text, 'window.g_qzonetoken = (function(){ try{return "', '";} catch(e)')
         return qzonetoken
 
     def get_friend_list(self, qqid):
         qzonetoken = self.parse_index(qqid)
-        print ('【qzonetoken】= {}'.format(qzonetoken))
+        #print ('【qzonetoken】= {}'.format(qzonetoken))
         if qzonetoken:
             url = "https://user.qzone.qq.com/proxy/domain/g.qzone.qq.com/cgi-bin/friendshow/cgi_get_visitor_simple?uin={}&mask=2&mod=2&fupdate=1&g_tk={}&qzonetoken={}&g_tk={}".format(qqid, self.g_tk, qzonetoken, self.g_tk)
             resp = self.ssion.get(url=url, headers=self.headers)
@@ -191,7 +192,7 @@ class QZone():
             if u'抱歉，您没有权限访问' not in resp.text:  # 相册好友没有访问权限
                 result = resp.text.replace('_Callback(', '').replace(');', '')
                 friends_dic = json.loads(result)
-                print result
+                #print result
                 friends_list = friends_dic['data']['items']
                 if len(friends_list) > 0:
                     for friend in friends_list:
@@ -203,8 +204,8 @@ class QZone():
                             self.writer.writerow([qqid, name])
 
     def main(self):
-        self.headers['cookie'] = "_qpsvr_localtk=0.09296240426904356; pgv_pvi=5298276352; pgv_si=s645937152; ptisp=cnc; pgv_pvid=445871590; pgv_info=ssid=s8576858245; ptui_loginuin=2634378274; pt2gguin=o2634378274; RK=xVgV1bFB5M; ptcz=f0325ee2ef78c84144b41f218c3766d4b6872aff7fd4eee0bc7716354004aba0; qz_screen=2560x1440; 2634378274_todaycount=1; 2634378274_totalcount=1; QZ_FE_WEBP_SUPPORT=1; cpu_performance_v8=0; __Q_w_s__QZN_TodoMsgCnt=1; zzpaneluin=; zzpanelkey=; uin=o2634378274; skey=@5bNq4zjh8; qzone_check=2634378274_1527645486; p_uin=o2634378274; pt4_token=aJEJBA1dU4VHp16cRYFnnyef26MwqjW1mxehhLU-mrk_; p_skey=1rSG5puftvqESNqp1053RPFFj1cE2gVWooX2YTDkfss_"
-        self.skey = '@5bNq4zjh8'
+        self.headers['cookie'] = "pgv_pvi=5701770240; pgv_pvid=9484171904; ptui_loginuin=346426523; RK=jHq1TXnwQk; ptcz=a197b335814ce371e543f9d0b981ba43ce11e29ba77826805d4d8b052667e62f; QZ_FE_WEBP_SUPPORT=1; __Q_w_s__QZN_TodoMsgCnt=1; o_cookie=346426523; pac_uid=1_346426523; pt2gguin=o0346426523; ptisp=cnc; pgv_si=s4975732736; pgv_info=ssid=s3842306356; uin=o0346426523; skey=@sqJbd8Cer; p_uin=o0346426523; pt4_token=OXFoQWE5SBk6LnCXm4ghhrd0lagjfNK-KraOqwa8raY_; p_skey=7FOLr2a6qG90KOmTD6lbWVF9kFKfO92L5DamkjR7IhY_; Loading=Yes; qz_screen=1920x1080; 346426523_todaycount=4; 346426523_totalcount=125959; cpu_performance_v8=21; rv2=8023350C488C8EBC814D4169CA0279E5E6376AE9FB8DC38500; property20=2FCD4EDD1A827C94E525EAFF67EA3856D98D658EAB4EED33FAF61E08DC5A0AA02598C7A39E5CA37C; __Q_w_s_hat_seed=1"
+        self.skey = '@sqJbd8Cer'
         self.g_tk = self.getGTK(self.skey)
         while not self.queue.empty():
             qqid = self.queue.get()
