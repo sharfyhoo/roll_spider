@@ -33,7 +33,7 @@ class QZone():
         self.writer = csv.writer(self.csvfile2)
         self.writer.writerow(['qq'])
         self.filter_list = ['346426523']
-        self.proxies = { "http": "http://192.168.2.229:8888", "https": "http://192.168.2.229:8888", }
+        self.proxies = { "http": "http://192.168.199.155:8888", "https": "http://192.168.199.155:8888", }
 
     def text_include(self, src, start, end):
         startIndex = src.find(start)
@@ -181,6 +181,7 @@ class QZone():
 
     def parse_index(self, qqid):
         u'''访问好友主页 获取关键参数'''
+        print qqid
         url = 'https://user.qzone.qq.com/{}'.format(qqid)
         #url = "https://i.qq.com/?s_url=http%3A%2F%2Fuser.qzone.qq.com%2F346426523&rd=1"
         resp = self.ssion.get(url, headers=self.headers, timeout=10)
@@ -219,8 +220,8 @@ class QZone():
                             self.queue.put(qqid)
 
     def main(self):
-        self.headers['cookie'] = "_qpsvr_localtk=0.09296240426904356; pgv_pvi=5298276352; pgv_si=s645937152; ptisp=cnc; pgv_pvid=445871590; pgv_info=ssid=s8576858245; ptui_loginuin=2634378274; pt2gguin=o2634378274; RK=xVgV1bFB5M; ptcz=f0325ee2ef78c84144b41f218c3766d4b6872aff7fd4eee0bc7716354004aba0; qqmusic_uin=; qqmusic_key=; qqmusic_fromtag=; midas_openid=2634378274; midas_openkey=@5bNq4zjh8; uin=o2634378274; skey=@FFo01xflb; rv2=80A93B1CFEA49ED8E89172B7686B2EBA3BE53C66F87CF4F2F5; property20=E99D5A2B562BB97BB6A553BFE43F2D9A106DB80936DEF117BCFAF317E62691C5513E3C58DFDE6A6A"
-        self.skey = '@5bNq4zjh8'
+        self.headers['cookie'] = "_qpsvr_localtk=0.09296240426904356; pgv_pvi=5298276352; pgv_si=s645937152; ptisp=cnc; pgv_pvid=445871590; pgv_info=ssid=s8576858245; ptui_loginuin=2634378274; pt2gguin=o2634378274; RK=xVgV1bFB5M; ptcz=f0325ee2ef78c84144b41f218c3766d4b6872aff7fd4eee0bc7716354004aba0; 2634378274_totalcount=1; QZ_FE_WEBP_SUPPORT=1; __Q_w_s__QZN_TodoMsgCnt=1; zzpaneluin=; zzpanelkey=; qz_screen=1920x1080; 2634378274_todaycount=0; qqmusic_uin=; qqmusic_key=; qqmusic_fromtag=; midas_openid=2634378274; midas_openkey=@5bNq4zjh8; cpu_performance_v8=2; qzmusicplayer=qzone_player_2534092499_1527663535388; rv2=80A93B1CFEA49ED8E89172B7686B2EBA3BE53C66F87CF4F2F5; property20=E99D5A2B562BB97BB6A553BFE43F2D9A106DB80936DEF117BCFAF317E62691C5513E3C58DFDE6A6A; uin=o2634378274; skey=@fmiwKjA2J; p_uin=o2634378274; pt4_token=gigNsLyzFJgpzax*M*338c6Dn5xpBWwobf0Z13xJWE8_; p_skey=7bATHacwSygXUdb4CYlSfrf9YGG7ni6mNXmSjG89T5g_"
+        self.skey = '@fmiwKjA2J'
         self.g_tk = self.getGTK(self.skey)
         for qq_msg in self.csvfile:
             qqid = qq_msg[0]            # try:
@@ -228,10 +229,12 @@ class QZone():
             #     self.get_friend_list(qqid)
             # except Exception as e:
             #     print(u'【wrong】目前访问的qq号为:{}出错\n{}'.format(qqid, e))
-            try:
-                m = self.parse_index(qqid)
-            except Exception as e:
-                print ('【Error__{}】:{}'.format(qqid, e))
+            # try:
+            #     m = self.parse_index(qqid)
+            # except Exception as e:
+            #     print ('【Error__{}】:{}'.format(qqid, e))
+            m = self.parse_index(qqid)
+
         self.csvfile.close()
         self.csvfile2.close()
 
